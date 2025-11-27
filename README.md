@@ -1,6 +1,6 @@
 [application of stack & queue & hash table](https://www.naukri.com/code360/library/application-of-linked-list-data-structure)
 
-
+https://substack.com/inbox/post/162787294   -- very important
 
 DSA questions can be boiled down to 16 patterns! Solve and master those patterns and the problems become easier to solve. What are those patterns.
 
