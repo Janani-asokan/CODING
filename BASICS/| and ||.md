@@ -123,15 +123,59 @@ if (ptr == nullptr | ptr->value == 0) // ❌
 
 ---
 
-## 📌 Final cheat sheet
-
-| Question | `|` | `||` |
-|--------|----|----|
-| What | Bitwise OR | Logical OR |
-| Where | Numbers / bits | Conditions |
-| How | Bit by bit | True / False |
-| When | Flags, masks | if / while |
+Sure 😊
+Here is the **Final Cheat Sheet** again — **very simple and clear**.
 
 ---
 
-I
+## 📌 FINAL CHEAT SHEET — `|` vs `||`
+
+### 🔹 `|` (single pipe)
+
+* **WHAT**: Bitwise OR
+* **WHERE**: With **numbers / bits**
+* **HOW**: Works **bit by bit**
+* **WHEN**: Flags, masks, low-level code
+* **SHORT-CIRCUIT**: ❌ No
+
+```cpp
+int a = 5 | 3;   // 0101 | 0011 = 0111 (7)
+```
+
+❌ Not for conditions:
+
+```cpp
+if (a | b)   // WRONG
+```
+
+---
+
+### 🔹 `||` (double pipe)
+
+* **WHAT**: Logical OR
+* **WHERE**: **if / while / conditions**
+* **HOW**: Works with **true / false**
+* **WHEN**: Decision making
+* **SHORT-CIRCUIT**: ✅ Yes
+
+```cpp
+if (a > 0 || b > 0)   // CORRECT
+```
+
+Safe:
+
+```cpp
+if (ptr == nullptr || ptr->value == 0)
+```
+
+---
+
+## 🧠 ONE-LINE MEMORY TIP
+
+> **`|` → bits**
+> **`||` → conditions**
+
+---
+
+
+
