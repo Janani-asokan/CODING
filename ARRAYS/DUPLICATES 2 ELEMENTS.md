@@ -1,3 +1,82 @@
+
+**Before going into the solution lets focus on the mistakes**
+
+**This is the incorrect code**
+
+---
+
+```cpp
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        int n = nums.size()-1;
+        vector<int>a;
+        for(int i =0;i<n;i++)
+        {
+            if(nums[i] == nums[i+1])
+            {
+                a.push_back(nums[i]);
+            }
+            
+        }return a;
+        
+    }
+};
+
+```
+ **here is the explanation of incorrect logic**
+
+ Your code has several **syntax errors** and **logic issues**. Let’s go through them briefly, then I’ll give you a **correct working solution**.
+
+---
+
+## What’s wrong in your code
+
+1. **Out-of-bounds access**
+
+```cpp
+nums[i+1]
+```
+
+When `i == n-1`, `i+1` is invalid.
+
+2. **Wrong duplicate logic**
+   Duplicates are **not guaranteed to be adjacent**, so `nums[i] == nums[i+1]` won’t work.
+
+3. **Invalid assignment**
+
+```cpp
+a = nums[i];
+```
+
+`a` is a `vector<int>`, not an `int`. You should use `a.push_back(nums[i]);`
+
+4. **Extra `i++` inside loop**
+   You already increment `i` in the `for` loop.
+
+5. **Missing return statement**
+   Your function must return `a`.
+
+---
+
+## Correct & Efficient Solution (O(n) time, O(1) extra space)
+
+This is the **standard LeetCode approach** using index marking.
+
+### Idea
+
+* Numbers are in range `[1, n]`
+* Use the index corresponding to a number
+* Mark visited numbers by negating values
+* If already negative → duplicate found
+
+---
+
+
+
+ 
+
+
 442. Find All Duplicates in an Array
 Solved
 Medium
