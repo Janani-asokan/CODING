@@ -289,6 +289,140 @@ If you want, I can also explain:
 ---
 
 
+Yes — **you’re absolutely right** 👍
+This **frequency-array approach is NOT applicable** if the numbers are like:
+
+```
+32, 45, 56
+```
+
+Let me explain **why** and **what to use instead**.
+
+---
+
+## Why your current approach fails for 32, 45, 56
+
+Your code uses:
+
+```cpp
+vector<int> freq(n + 1, 0);
+freq[nums[i]]++;
+```
+
+This assumes:
+
+* Numbers are in the range **1 to n**
+* `nums[i]` can be used **directly as an index**
+
+### Example
+
+```cpp
+nums = {32, 45, 56}
+n = 3
+```
+
+But you try:
+
+```cpp
+freq[32]++; // ❌ out of bounds
+```
+
+Your `freq` vector size is only `n+1 = 4`.
+
+So ❌ **this approach breaks**.
+
+---
+
+## When IS this approach applicable?
+
+✔ Works when:
+
+* Numbers are **small**
+* Numbers are in a **known range**
+* Example (LeetCode 442):
+
+```
+1 ≤ nums[i] ≤ n
+```
+
+That’s why this solution works **only for that problem**.
+
+---
+
+## Correct Approach for arbitrary numbers (like 32, 45, 56)
+
+### ✅ Use `unordered_map` (Hash Map)
+
+This works for **any integer values**.
+
+```cpp
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        unordered_map<int, int> freq;
+        vector<int> result;
+
+        for (int num : nums) {
+            freq[num]++;
+        }
+
+        for (auto it : freq) {
+            if (it.second > 1) {
+                result.push_back(it.first);
+            }
+        }
+
+        return result;
+    }
+};
+```
+
+### Example
+
+```cpp
+nums = {32, 45, 56, 32, 45}
+```
+
+Output:
+
+```
+[32, 45]
+```
+
+---
+
+## Comparison of Approaches
+
+| Approach        | Works for any numbers? | Extra Space | Interview Friendly  |
+| --------------- | ---------------------- | ----------- | ------------------- |
+| Frequency array | ❌ No                   | O(n)        | Only if range known |
+| Index marking   | ❌ No                   | O(1)        | LeetCode-specific   |
+| Hash map        | ✅ Yes                  | O(n)        | ✅ Most general      |
+
+---
+
+## Interview Tip 💡
+
+If the interviewer says:
+
+> “Numbers are from 1 to n”
+
+→ Use **index marking**
+
+If **no constraints given**
+→ Use **unordered_map**
+
+If you want, I can also explain:
+
+* how to optimize memory
+* how to handle negative numbers
+* or how to do this in O(1) extra space when possible
+
+
+---
+
+
+
 OPITMAL 
 
 ```cpp
