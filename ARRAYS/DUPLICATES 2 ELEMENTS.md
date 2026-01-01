@@ -131,6 +131,161 @@ public:
     
 };
 
+
+
+
+---
+
+
+Great question — this confusion is **very common**, and you’re actually very close 👍
+Let’s clear it up step by step.
+
+---
+
+## Why do we push `i` and not `freq[i]`?
+
+### What `freq` represents
+
+```cpp
+freq[x] = how many times number x appears in nums
+```
+
+So:
+
+* `i` → **the number itself**
+* `freq[i]` → **how many times that number occurs**
+
+---
+
+### Your goal
+
+> **Find the numbers that appear more than once**
+
+That means:
+
+* You want the **number**
+* Not how many times it appears
+
+---
+
+### Example Walkthrough
+
+#### Input
+
+```cpp
+nums = {4, 3, 2, 7, 8, 2, 3, 1}
+```
+
+After counting frequencies:
+
+```
+index (i):  0 1 2 3 4 5 6 7 8
+freq[i]:    0 1 2 2 1 0 0 1 1
+```
+
+Now check:
+
+```cpp
+if (freq[i] > 1)
+```
+
+* `freq[2] = 2` → number **2** is duplicated
+* `freq[3] = 2` → number **3** is duplicated
+
+So you push:
+
+```cpp
+result.push_back(i); // push 2 and 3
+```
+
+✅ Correct output:
+
+```
+[2, 3]
+```
+
+---
+
+### ❌ What if you pushed `freq[i]` instead?
+
+```cpp
+result.push_back(freq[i]);
+```
+
+You would get:
+
+```
+[2, 2]
+```
+
+That means:
+
+> “Some number appeared twice”
+> But you **don’t know which number** ❌
+
+---
+
+## Small Improvement (Loop Range)
+
+You wrote:
+
+```cpp
+for (int i = 0; i <= n; i++)
+```
+
+Better:
+
+```cpp
+for (int i = 1; i <= n; i++)
+```
+
+Why?
+
+* Problem constraints: numbers are from `1` to `n`
+* `freq[0]` is unused
+
+---
+
+## Final Clean Version
+
+```cpp
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> result;
+        vector<int> freq(n + 1, 0);
+
+        for (int i = 0; i < n; i++) {
+            freq[nums[i]]++;
+        }
+
+        for (int i = 1; i <= n; i++) {
+            if (freq[i] > 1) {
+                result.push_back(i);
+            }
+        }
+
+        return result;
+    }
+};
+```
+
+---
+
+### Key takeaway 🧠
+
+> **Index = number**
+> **Value at index = frequency**
+
+If you want, I can also explain:
+
+* how to visualize frequency arrays better
+* or why the O(1) space solution is preferred in interviews
+
+
+
+---
 ```
 
 OPITMAL 
