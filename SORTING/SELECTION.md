@@ -74,31 +74,61 @@ for(int i = 0; i < n-1; i++)
 ---
 
 
+Great question! Sorting typically requires **two loops** (not necessarily two algorithms) because of how comparison-based sorting works. Let me explain why:
 
-## 💡 If You Just Want To Sort (Best Way)
+## Why Two Loops?
 
-C++ already provides a built-in sort:
+### 1. **The Logic of Selection Sort**
+In selection sort, we need to:
+- **Loop 1 (Outer loop)**: Place each element in its correct position one by one
+- **Loop 2 (Inner loop)**: Find the minimum element from the remaining unsorted portion
 
 ```cpp
-#include <algorithm>
-
-sort(nums.begin(), nums.end());
+for (int i = 0; i < n - 1; i++) {              // Outer loop: positions to fill
+    int minIndex = i;
+    for (int j = i + 1; j < n; j++) {           // Inner loop: find minimum
+        if (nums[j] < nums[minIndex]) {
+            minIndex = j;
+        }
+    }
+    swap(nums[i], nums[minIndex]);              // Place minimum in correct position
+}
 ```
 
-Time Complexity:
+### 2. **Visual Example**
+Sorting `[5, 2, 8, 1, 9]`:
 
-* Bubble Sort → O(n²)
-* `sort()` → O(n log n)
+**Outer loop i=0** (find element for position 0):
+- Inner loop finds minimum among `[5, 2, 8, 1, 9]` → `1` at index 3
+- Swap: `[1, 2, 8, 5, 9]`
 
----
+**Outer loop i=1** (find element for position 1):
+- Inner loop finds minimum among `[2, 8, 5, 9]` → `2` at index 1
+- No swap needed: `[1, 2, 8, 5, 9]`
 
-If you'd like, tell me:
+**Outer loop i=2** (find element for position 2):
+- Inner loop finds minimum among `[8, 5, 9]` → `5` at index 3
+- Swap: `[1, 2, 5, 8, 9]`
 
-* 🔹 Are you required to implement manually?
-* 🔹 Is this for LeetCode or an interview?
-* 🔹 Do you want ascending or descending?
+And so on...
 
-I’ll tailor it exactly for your use case.
+## Different Sorting Algorithms Use Different Numbers of Loops
+
+| Algorithm | Loop Structure | Why |
+|-----------|---------------|-----|
+| **Bubble Sort** | Two nested loops | Compare adjacent elements, repeat for each pass |
+| **Selection Sort** | Two nested loops | Find minimum for each position |
+| **Insertion Sort** | Two nested loops | Insert each element into sorted portion |
+| **Merge Sort** | Recursive (not simple loops) | Divide and conquer approach |
+| **Quick Sort** | Recursive with partitioning | Divide and conquer with pivot |
+
+## The Core Reason
+
+For comparison-based sorting of n elements, we need to make **O(n²)** comparisons in the worst case for simple algorithms. Two nested loops naturally give us this n × n relationship:
+- Outer loop runs **n times** (for each element)
+- Inner loop runs up to **n times** (comparing with other elements)
+
+This is why most basic sorting algorithms use two nested loops - it's the simplest way to compare each element with others to determine their correct order.
 
 
 
