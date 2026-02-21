@@ -1,4 +1,78 @@
 
+Intuition
+The bubble sort algorithm sorts an array by repeatedly swapping adjacent elements if they are in the wrong order. The largest elements "bubble" to the end of the array with each pass.
+
+Approach
+**Run a loop i from n-1 to 0.
+Run a nested loop from j from 0 to i-1.
+If arr[j] > arr[j+1], swap them.
+Continue until the array is sorted.**
+**Note: Here, after each iteration, the array becomes sorted up to the last index of the range. That is why the last index of the range decreases by 1 after each iteration. This decrement is managed by the outer loop, where the last index is represented by the variable i. The inner loop (variable j) helps to push the maximum element of the range [0...i] to the last index (i.e., index i).**
+
+```cpp
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+      // Bubble sort Functin
+    vector<int> bubbleSort(vector<int>& nums) {
+        int n = nums.size();
+        // Traverse through the array
+        for (int i = n - 1; i >= 0; i--) {
+            // Track if swaps are made 
+            bool didSwap = false;
+            for (int j = 0; j <= i - 1; j++) {
+                // Swap if next element is smaller
+                if (nums[j] > nums[j + 1]) {
+                    swap(nums[j], nums[j + 1]);
+                    didSwap = true;
+                }
+            }
+            /**  Break out of loop 
+         if no swaps done*/
+            if (!didSwap) {
+                break;
+            }
+        }
+        return nums;
+    }
+};
+
+int main() {
+    // Create an instance of solution 
+    Solution solution;
+    
+    vector<int> nums = {7, 4, 1, 5, 3};
+    
+    cout << "Before Using Bubble Sort: " << endl;
+    for (int num : nums) {
+        cout << num << " ";
+    }
+    cout << endl;
+
+    // Function call for Bubble Sort
+    nums = solution.bubbleSort(nums);
+
+    cout << "Array After Using Bubble Sort: " << endl;
+    for (int num : nums) {
+        cout << num << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+
+```
+Complexity Analysis:  
+Time Complexity: O(N2) for the worst and average cases and O(N) for the best case. Here, N is the size of the array.
+
+Space Complexity: O(1), because Bubble Sort is an in-place sorting algorithm, meaning it only requires a constant amount of extra space for its operations, regardless of the size of the input array.
+
+
+
 ![Sorting - Part 1 _ Selection Sort, Bubble Sort, Insertion Sort _ Strivers A2Z DSA Course 23-33 screenshot](https://github.com/user-attachments/assets/8e8e4de1-5f84-4580-ace4-f617f86cdef8)
 
 ![Sorting - Part 1 _ Selection Sort, Bubble Sort, Insertion Sort _ Strivers A2Z DSA Course 23-54 screenshot](https://github.com/user-attachments/assets/e827c6a9-58c9-4cf9-86bd-88dd86018dc2)
