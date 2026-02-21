@@ -1,3 +1,108 @@
+## 🚫 What Was Wrong in Your Code?
+
+1. `for(int i = 0; i <= n-1; i++)`
+   → Should be `i < n-1`
+
+2. `nums[i] = nums[i+1];`
+   → This **overwrites** value instead of swapping
+
+3. Only one pass is not enough
+   → Sorting requires multiple passes
+
+---
+
+
+It looks like you’re trying to sort an array using this comparison:
+
+```cpp
+if(nums[i] > nums[i+1])
+{
+    nums[i] = nums[i+1];
+}
+```
+
+But this won’t sort the array correctly because:
+
+* You’re only replacing `nums[i]`
+* You’re not swapping both elements
+* You’ll also get **out-of-bounds error** when `i = n-1` (since `nums[i+1]` doesn’t exist)
+
+---
+
+## ✅ If you must use this approach (Adjacent Comparison)
+
+You’re basically trying to implement **Bubble Sort**.
+
+Here’s the correct way:
+
+```cpp
+vector<int> ans;
+int n = nums.size();
+
+for(int i = 0; i < n-1; i++)
+{
+    for(int j = 0; j < n-i-1; j++)
+    {
+        if(nums[j] > nums[j+1])
+        {
+            // swap elements
+            int temp = nums[j];
+            nums[j] = nums[j+1];
+            nums[j+1] = temp;
+        }
+    }
+}
+```
+
+---
+
+## 🔥 Even Better (Using swap)
+
+```cpp
+for(int i = 0; i < n-1; i++)
+{
+    for(int j = 0; j < n-i-1; j++)
+    {
+        if(nums[j] > nums[j+1])
+        {
+            swap(nums[j], nums[j+1]);
+        }
+    }
+}
+```
+
+---
+
+
+
+## 💡 If You Just Want To Sort (Best Way)
+
+C++ already provides a built-in sort:
+
+```cpp
+#include <algorithm>
+
+sort(nums.begin(), nums.end());
+```
+
+Time Complexity:
+
+* Bubble Sort → O(n²)
+* `sort()` → O(n log n)
+
+---
+
+If you'd like, tell me:
+
+* 🔹 Are you required to implement manually?
+* 🔹 Is this for LeetCode or an interview?
+* 🔹 Do you want ascending or descending?
+
+I’ll tailor it exactly for your use case.
+
+
+
+
 ![Sorting - Part 1 _ Selection Sort, Bubble Sort, Insertion Sort _ Strivers A2Z DSA Course 7-29 screenshot (1)](https://github.com/user-attachments/assets/80dff8b3-e665-4177-9e0c-4fcc80692e88)
 
 
