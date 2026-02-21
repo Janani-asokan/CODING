@@ -179,63 +179,78 @@ Selection sort repeatedly finds the **smallest element** in the unsorted part of
   - Only a few variables (`mini`, `temp`) are used.
 
 ---
+Intuition
+The selection sort algorithm sorts an array by repeatedly finding the minimum element from the unsorted part and putting it at the beginning. The largest element will end up at the last index of the array.
 
-### ✅ **Advantages**
-1. **Simple to understand & implement** 👨‍💻.
-2. **Works well for small datasets** 📊.
-3. **Requires no extra space** (in-place sorting) 💾.
-
----
-
-### ❌ **Disadvantages**
-1. **Inefficient for large datasets** ❌:
-   - Quadratic time complexity (**O(n²)**) makes it slow.
-2. **Not a stable sort** ⚠️:
-   - **Stability** means equal elements maintain their **original order**.
-   - Since selection sort swaps elements **non-adjacently**, relative order may change.
-   - Example: If `arr = [(3, A), (3, B), 1, 2]`, sorting may result in `[(1), (2), (3, B), (3, A)]` (order of `(3, A)` and `(3, B)` is altered).
-
----
-
-### 📌 **Key Takeaways**
-✔️ Selection Sort is **easy to implement** but **inefficient** for large datasets.  
-✔️ It performs **in-place sorting** with **O(1) space complexity**.  
-✔️ It is **not stable**, meaning it may not preserve the order of duplicate elements.  
-✔️ It is **useful only for small arrays** or when **memory is very limited**.
+Approach
+Select the starting index of the unsorted part using a loop with i from 0 to n-1.
+Find the smallest element in the range from i to n-1 using an inner loop.
+Swap this smallest element with the element at index i.
+Repeat the process for the next starting index.
 
 
 ```cpp
 
-// selection sort
-  for (int i = 0; i < n - 1; i++) {
-    int mini = i;
-    for (int j = i + 1; j < n; j++) {
-      if (arr[j] < arr[mini]) {
-        mini = j;
-      }
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    // Function for selection sort
+    vector<int> selectionSort(vector<int>& nums) {
+        // Loop through the unsorted array
+        for (int i = 0; i < nums.size() - 1; i++) {
+            /*Assume the current 
+            index is the smallest*/
+            int minIndex = i;
+            
+            // Find the index of the smallest element
+            for (int j = i + 1; j <nums.size(); j++) {
+                /*Update minIndex if smaller 
+                element is found */
+                if (nums[j] < nums[minIndex]) {
+                    minIndex = j;
+                }
+            }
+        
+            // Swap only if minIndex is changed
+            if (minIndex != i) {
+                swap(nums[minIndex], nums[i]);
+            }
+        }
+        return nums;
     }
-    int temp = arr[mini];
-    arr[mini] = arr[i];
-    arr[i] = temp;
-  }
+};
 
-  cout << "After selection sort: " << "\n";
-  for (int i = 0; i < n; i++) {
-    cout << arr[i] << " ";
-  }
-  cout << "\n";
-
-}
 int main() {
-  int arr[] = {13,46,24,52,20,9};
-  int n = sizeof(arr) / sizeof(arr[0]);
-   cout << "Before selection sort: " << "\n";
-   for (int i = 0; i < n; i++) {
-    cout << arr[i] << " ";
-  }
-  cout << "\n";
-  selection_sort(arr, n);
-  return 0;
+
+    vector<int> arr = {7, 5, 9, 2, 8};
+    
+    cout << "Original array: ";
+    for (int num : arr) {
+        cout << num << " ";
+    }
+    cout << endl;
+
+    // Create an instance of the Solution class
+    Solution s1;
+
+    // function call for Selection Sort
+    vector<int> sortedArr = s1.selectionSort(arr);
+
+    cout << "Sorted array: ";
+    for (int num : sortedArr) {
+        cout << num << " ";
+    }
+    cout << endl;
+
+    return 0;
 }
 
 ```
+
+**Complexity Analysis **
+**Time Complexity: O(N2) where N is the length of the input array. The outer loop runs through each element, and the inner loop finds the smallest element in the unsorted portion of the array.**
+
+**Space Complexity: O(1) as it is an in-place sorting algorithm and does not require additional storage proportional to the input size.**
+
