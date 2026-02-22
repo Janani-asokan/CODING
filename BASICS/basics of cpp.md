@@ -87,7 +87,7 @@ r = b;    // does NOT rebind, it copies value of b into a
 
 ### ✅ 4. Safety
 
-*** References are generally **safer** because they cannot be null.**
+** References are generally **safer** because they cannot be null.**
 * Pointers are more flexible but require careful handling.
 
 ---
