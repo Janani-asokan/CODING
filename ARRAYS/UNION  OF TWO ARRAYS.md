@@ -12,7 +12,7 @@ public:
 
         while(i<n && j<m)
         {
-            if(nums1[i] < nums2[j])
+            if(nums1[i] <= nums2[j])
             {
                 if(Union.empty() || Union.back()!=nums1[i])
                     Union.push_back(nums1[i]);
@@ -24,13 +24,7 @@ public:
                     Union.push_back(nums2[j]);
                 j++;
             }
-            else
-            {
-                if(Union.empty() || Union.back()!=nums1[i])
-                    Union.push_back(nums1[i]);
-                i++;
-                j++;
-            }
+            
         }
 
         // Add remaining elements from nums1
