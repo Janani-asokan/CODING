@@ -559,6 +559,171 @@ Final answer = {2,3}
 
 ---
 
-If you want, I can explain the **entire code in one picture-style dry run** so you fully master HashSet questions (very common in interviews).
+Your HashSet solution removes duplicates, but this test case expects **duplicates to be included**.
+
+Your current code:
+
+```cpp
+unordered_set<int> s(nums2.begin(), nums2.end());
+```
+
+A **set only stores unique elements**, so:
+
+```
+nums2 = [4,10,10,11,119]
+```
+
+Set becomes:
+
+```
+s = {4,10,11,119}
+```
+
+The duplicate `10` is lost ❌
+
+---
+
+# 🔴 Why your output is wrong
+
+Input:
+
+```
+nums1 = [10,10,10,10,100,119]
+nums2 = [4,10,10,11,119]
+```
+
+Expected output:
+
+```
+[10,10,119]
+```
+
+Because:
+
+* nums1 has four 10s
+* nums2 has two 10s
+* Intersection should have **min(4,2) = 2 copies of 10**
+
+But set only keeps one 10 → wrong result.
+
+---
+
+# ✅ Correct approach: Use HashMap (frequency count)
+
+Use `unordered_map` instead of `unordered_set`.
+
+---
+
+# ✅ Correct code
+
+```cpp
+class Solution {
+public:
+    vector<int> intersectionArray(vector<int>& nums1, vector<int>& nums2) {
+
+        unordered_map<int,int> freq;
+
+        // count frequency of nums2
+        for(int x : nums2)
+        {
+            freq[x]++;
+        }
+
+        vector<int> ans;
+
+        // check nums1 elements
+        for(int x : nums1)
+        {
+            if(freq[x] > 0)
+            {
+                ans.push_back(x);
+                freq[x]--;
+            }
+        }
+
+        return ans;
+    }
+};
+```
+
+---
+
+# 🔹 How this works
+
+nums2:
+
+```
+[4,10,10,11,119]
+```
+
+Frequency map:
+
+```
+4 → 1
+10 → 2
+11 → 1
+119 → 1
+```
+
+Now loop nums1:
+
+```
+10 → found → add → freq[10]=1
+10 → found → add → freq[10]=0
+10 → not added
+10 → not added
+100 → not found
+119 → found → add → freq[119]=0
+```
+
+Result:
+
+```
+[10,10,119] ✅ correct
+```
+
+---
+
+# 🔹 Why HashMap works but HashSet fails
+
+| HashSet                | HashMap          |
+| ---------------------- | ---------------- |
+| stores unique only     | stores frequency |
+| loses duplicates       | keeps duplicates |
+| wrong for this problem | correct          |
+
+---
+
+# 🔹 Time complexity
+
+```
+O(n + m)
+```
+
+Space complexity:
+
+```
+O(m)
+```
+
+---
+
+# 🔹 This problem is:
+
+**LeetCode 350 — Intersection of Two Arrays II**
+
+(not LeetCode 349)
+
+---
+
+# 🔹 Rule to remember for interviews
+
+* Use `unordered_set` → when duplicates NOT needed
+* Use `unordered_map` → when duplicates needed ✅
+
+---
+
+If you want, I can also show the **two-pointer optimal solution (most preferred in interviews)**.
+
 
 
