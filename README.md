@@ -2,6 +2,11 @@
 
 https://substack.com/inbox/post/162787294   -- very important
 
+https://sachuverma.github.io/DataStructures-Algorithms/Striver%20Sheet/    -- **DSA TOPIC WISE 100 QUESTIONS**
+
+
+https://github.com/rizonkumar/A2Z-DSA-Course-Notes/tree/main  -- **BASIC NOTES OF SOMEONE UNDRSTANDING**
+
 DSA questions can be boiled down to 16 patterns! Solve and master those patterns and the problems become easier to solve. What are those patterns.
 
 DSA Patterns :
