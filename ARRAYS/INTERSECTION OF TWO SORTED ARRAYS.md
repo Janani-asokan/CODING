@@ -348,16 +348,217 @@ instead of slow search.
 
 ---
 
-# 🔹 Summary in one line
+Good 👍 Step 6 is:
 
 ```cpp
-if(s.count(x))
+s.erase(x);
+```
+
+This means:
+
+👉 **Remove the element `x` from the HashSet `s`**
+
+---
+
+# 🔹 Why do we remove it?
+
+To **prevent duplicates in the answer**.
+
+Because HashSet originally contains elements from `nums2`. If we don't remove, same element could be added multiple times.
+
+---
+
+# 🔹 Example WITHOUT erase ❌
+
+```cpp
+nums1 = {2,2,2}
+nums2 = {2}
+```
+
+Step 1: Create set
+
+```cpp
+s = {2}
+```
+
+Loop through nums1:
+
+Iteration 1:
+
+```
+x = 2
+s.count(2) → true
+ans = {2}
+```
+
+Iteration 2:
+
+```
+x = 2
+s.count(2) → true
+ans = {2,2} ❌ duplicate
+```
+
+Iteration 3:
+
+```
+x = 2
+s.count(2) → true
+ans = {2,2,2} ❌ duplicate
+```
+
+Wrong result.
+
+---
+
+# 🔹 Example WITH erase ✅
+
+```cpp
+nums1 = {2,2,2}
+nums2 = {2}
+```
+
+Step 1:
+
+```cpp
+s = {2}
+```
+
+Iteration 1:
+
+```
+x = 2
+found in set
+ans = {2}
+```
+
+Now erase:
+
+```cpp
+s.erase(2)
+```
+
+Set becomes:
+
+```cpp
+s = {}
+```
+
+Iteration 2:
+
+```
+x = 2
+s.count(2) → false
+```
+
+Iteration 3:
+
+```
+x = 2
+s.count(2) → false
+```
+
+Final answer:
+
+```cpp
+{2} ✅ correct
+```
+
+---
+
+# 🔹 Visual diagram
+
+Before erase:
+
+```id="o2f42c"
+Set s = {2,3,4}
+```
+
+After:
+
+```cpp
+s.erase(2);
+```
+
+Set becomes:
+
+```id="vvyxt5"
+Set s = {3,4}
+```
+
+2 is removed.
+
+---
+
+# 🔹 Real-life example 🎒
+
+Set = basket with fruits
+
+```
+Basket = {apple, banana, mango}
+```
+
+You pick apple and put in answer.
+
+Now remove apple from basket:
+
+```
+Basket = {banana, mango}
+```
+
+So you won't pick apple again.
+
+---
+
+# 🔹 What erase does internally
+
+```cpp
+s.erase(x);
 ```
 
 means:
 
-👉 "If x is present in nums2"
+```
+Find x in set
+Delete it
+```
 
 ---
+
+# 🔹 Summary
+
+```cpp
+s.erase(x);
+```
+
+means:
+
+👉 Remove element from set
+👉 Prevent duplicate answers
+👉 Ensure intersection contains unique elements
+
+---
+
+# 🔹 Full simple flow
+
+```cpp
+Set s = {2,3,4}
+
+nums1 = {1,2,2,3}
+
+Check 1 → no
+Check 2 → yes → add → erase 2
+Set = {3,4}
+
+Check 2 → no
+Check 3 → yes → add → erase 3
+Set = {4}
+
+Final answer = {2,3}
+```
+
+---
+
+If you want, I can explain the **entire code in one picture-style dry run** so you fully master HashSet questions (very common in interviews).
 
 
