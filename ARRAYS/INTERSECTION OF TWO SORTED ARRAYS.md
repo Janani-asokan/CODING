@@ -1,0 +1,34 @@
+```cpp
+
+class Solution {
+public:
+    vector<int> intersectionArray(vector<int>& nums1, vector<int>& nums2) {
+        vector<int>ans;
+        int j =0;
+        int i =0;
+        int n = nums1.size();
+        int m = nums2.size();
+        while(i<n && j<m)
+        {
+            if(nums1[i] == nums2[j])
+            {
+                ans.push_back(nums1[i]);
+                j++;
+                i++;
+            }
+            else if(nums1[i] > nums2[j])
+            {
+               j++; 
+            }
+            else{
+                i++;
+            }
+        }return ans;
+        
+    }
+};
+
+
+
+```
+
